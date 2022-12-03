@@ -41,6 +41,7 @@ pip install -r requirements.txt
 * exchange_bot
 * menu_bot
 * viewer_bot
+* save_data_log
 
 ***
 
@@ -52,7 +53,7 @@ pip install -r requirements.txt
 |          exchange_bot |Имя        |               |
 |              menu_bot |Имя        |               |
 |            viewer_bot |Имя        |               |
-|                       |Имя        |               |
+|         save_data_log |Имя        |               |
 |                       |Имя        |               |
 |                       |Имя        |               |
 |                       |Имя        |               |
@@ -76,6 +77,9 @@ pip install -r requirements.txt
     Сайт:    
     * входные данные - запрос api с сайта
     * выходные данные - курс валют
+5. save_data_log
+    * метод сохранения лога
+    * входные данные - время, пользователь, ид, действие
      
     ***
 
