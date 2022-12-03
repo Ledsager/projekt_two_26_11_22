@@ -1,18 +1,15 @@
 import copy
-import tkinter
+from dotenv import load_dotenv
+import os
 from datetime import datetime as dt
-from tkinter import *
-from tkinter import ttk
+import pandas as pd
+import requests
 
 
 def get_data_viewer_output(data):
     data_exchange = copy.deepcopy(data)
     date_now = dt.now().strftime('%Y-%m-%d %H:%M')
-    root = tkinter.Tk()
-    root.title(f'Курс валют на сегодня - {date_now}')
-    frame_color = '#4ca8ff'  # палитра или рал цвета
-    # btn2 = Button(root, width=40, text="Перевод валют", command=exchange_convert_t)
-    # btn2.pack(side=TOP, padx=10, pady=10)
+
     for list_element in data_exchange:
         list_element.insert(0, '')
 
@@ -25,18 +22,33 @@ def get_data_viewer_output(data):
 
     res = [*[header_file_csv], *data_exchange]
     print(res)
-    # r и c указывают нам место расположения меток
-    r = 0
+    
     for col in res:
-        c = 0
         for row in col:
-            # добавил стиль в меню и цвет
             print(row)
-            lbl = Label(root, width=20, height=2,
-                        text=row, relief=RIDGE, bg=frame_color)
-            # label = Label(root, width = 20, height = 2, \
-            #   text = row, relief = RIDGE, bg=frame_color)
-            lbl.grid(column=c, row=r)
-            c += 1
-        r += 1
-    root.mainloop()
+
+def get_data_request_exchange_api() -> list:
+
+    load_dotenv()
+    API_KEY = os.getenv('API_KEY')
+
+    url = f'https://v6.exchangerate-api.com/v6/{API_KEY}/latest/RUB'
+    # запрос api в формате json
+
+    response = requests.get(f'{url}').json()
+    # получение словаря
+    currencies = dict(response['conversion_rates'])
+    currencies = [list(i) for i in currencies.items()  # преобразование словаря в список
+                  if ('USD' in i) or ('EUR' in i) or ('KZT' in i) or ('TRY' in i) or ('UZS' in i) or ('AZN' in i)]
+
+    return currencies
+
+
+def main():
+    
+    data = get_data_request_exchange_api()
+    get_data_viewer_output(data)
+
+
+if __name__ == "__main__":
+    main()
