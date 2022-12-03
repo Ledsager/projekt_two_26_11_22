@@ -74,6 +74,10 @@ async def start_over(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 async def exchenge(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Show new choice of buttons"""
     query = update.callback_query
+    user = query.from_user
+    logger.info("Пользователь %s запросил перевод валют.", user.first_name)
+    data=[user.first_name,user.id,'запросил перевод валют']
+    get_save_data_log(data)
     await query.answer()
     keyboard = [
         [
@@ -96,6 +100,10 @@ async def exchenge(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 async def rate(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Show new choice of buttons"""
     query = update.callback_query
+    user = query.from_user
+    logger.info("Пользователь %s запросил курс валют.", user.first_name)
+    data=[user.first_name,user.id,'запросил курс валют']
+    get_save_data_log(data)
     await query.answer()
     keyboard = [
         [
@@ -113,6 +121,10 @@ async def rate(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 async def save_rate(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Show new choice of buttons. This is the end point of the conversation."""
     query = update.callback_query
+    user = query.from_user
+    logger.info("Пользователь %s сохранил курс валют.", user.first_name)
+    data=[user.first_name,user.id,'сохранил курс валют']
+    get_save_data_log(data)
     await query.answer()
     keyboard = [
         [
@@ -150,6 +162,10 @@ async def end(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     ConversationHandler that the conversation is over.
     """
     query = update.callback_query
+    user = query.from_user
+    logger.info("Пользователь %s покинул чат.", user.first_name)
+    data=[user.first_name,user.id,'покинул чат']
+    get_save_data_log(data)   
     await query.answer()
     await query.edit_message_text(text="Всего хорошего!")
     return ConversationHandler.END
