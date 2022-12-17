@@ -24,9 +24,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-START_ROUTES, END_ROUTES = range(2)
-EXCH, RATE, SAVE_RATE, END_BOT, OVER_START = range(5)
-
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Отправьте сообщение `/start`."""
@@ -35,7 +32,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 async def exchenge(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    """Show new choice of buttons"""
     user = update.message.from_user
     logger.info("Пользователь %s запросил перевод валют.", user.first_name)
     data = [user.first_name, user.id, 'запросил перевод валют']
@@ -45,8 +41,8 @@ async def exchenge(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     get_save_data_exchange(data_exchange)
     # updates = update.get_updates()
 
-    await update.message.reply_text("введите валюту которую хотете обменять")
-    await update.message.reply_text("Из какой в какую количество(пример: EUR USD 1000")
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="введите валюту которую хотете обменять")
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="Из какой в какую количество(пример: EUR USD 1000)")
     text = update.message.text
     # context.user_data["choice"] = text
     print(text)
@@ -56,6 +52,7 @@ async def exchenge(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     amount = float(text_split[2])
     convert_currency(data_request, source, destination, amount)
     await update.message.reply_text(convert_currency(data_request, source, destination, amount))
+
 
 async def rate(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 

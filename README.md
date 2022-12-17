@@ -24,11 +24,12 @@ pip install -r requirements.txt
 
 ## Библиотеки
 
-Для работы бота необходимо установить библиотеки:
-1. pip install python-dotenv
-2. pip install python-telegram-bot --pre
-3. 
-4. 
+Для работы бота необходим файл .env:
+1. TOKEN='тут ваш код'
+2. API_KEY ='тут ваш код'
+
+API_KEY для сайта https://v6.exchangerate-api.com/v6/{API_KEY}/latest/RUB
+ 
 
 ## Как использовать
 
