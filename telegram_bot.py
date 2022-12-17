@@ -41,7 +41,7 @@ async def exchenge(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     get_save_data_exchange(data_exchange)
     # updates = update.get_updates()
 
-    await context.bot.send_message(chat_id=update.effective_chat.id, text="введите валюту которую хотете обменять")
+    await context.bot.send_message(chat_id=update.effective_chat.id, text="Обмен валюты!")
     await context.bot.send_message(chat_id=update.effective_chat.id, text="Из какой в какую количество(пример: EUR USD 1000)")
     text = update.message.text
     # context.user_data["choice"] = text
